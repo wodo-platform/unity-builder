@@ -62,7 +62,7 @@ class Docker {
             --workdir ${dockerWorkspacePath} \
             --rm \
             --runtime=nvidia \
-            --gpus 'all,"capabilities=compute,utility"' \
+            --gpus all \
             ${ImageEnvironmentFactory.getEnvVarString(parameters, additionalVariables)} \
             --env UNITY_SERIAL \
             --env GITHUB_WORKSPACE=${dockerWorkspacePath} \
@@ -109,7 +109,7 @@ class Docker {
             --workdir c:${dockerWorkspacePath} \
             --rm \
             --runtime=nvidia \
-            --gpus 'all,"capabilities=compute,utility"' \
+            --gpus all \
             ${ImageEnvironmentFactory.getEnvVarString(parameters)} \
             --env UNITY_SERIAL="${unitySerial}" \
             --env GITHUB_WORKSPACE=c:${dockerWorkspacePath} \
