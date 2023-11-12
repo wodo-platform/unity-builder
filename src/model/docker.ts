@@ -62,8 +62,7 @@ class Docker {
             --workdir ${dockerWorkspacePath} \
             --rm \
             --runtime=nvidia \
-            --gpus all \
-            -e DISPLAY=$DISPLAY nvidia-opencl \
+            NVIDIA_VISIBLE_DEVICES=0 \
             ${ImageEnvironmentFactory.getEnvVarString(parameters, additionalVariables)} \
             --env UNITY_SERIAL \
             --env GITHUB_WORKSPACE=${dockerWorkspacePath} \
@@ -108,8 +107,7 @@ class Docker {
             --workdir c:${dockerWorkspacePath} \
             --rm \
             --runtime=nvidia \
-            --gpus all \
-            -e DISPLAY=$DISPLAY nvidia-opencl \
+            NVIDIA_VISIBLE_DEVICES=0 \
             ${ImageEnvironmentFactory.getEnvVarString(parameters)} \
             --env UNITY_SERIAL="${unitySerial}" \
             --env GITHUB_WORKSPACE=c:${dockerWorkspacePath} \
