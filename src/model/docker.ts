@@ -83,7 +83,7 @@ class Docker {
             --volume "${actionFolder}/unity-config:/usr/share/unity3d/config/:z" \
             --volume "/tmp/.X11-unix:/tmp/.X11-unix" \
             --volume "\${XAUTHORITY}:\${XAUTHORITY}" \
-            --volume "$XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR" \
+            --volume "\${XDG_RUNTIME_DIR}:\${XDG_RUNTIME_DIR}" \
             --cpus=${dockerCpuLimit} \
             --memory=${dockerMemoryLimit} \
             ${sshAgent ? `--volume ${sshAgent}:/ssh-agent` : ''} \
@@ -136,7 +136,7 @@ class Docker {
             --volume "${actionFolder}/BlankProject":"c:/BlankProject" \
             --volume "/tmp/.X11-unix:/tmp/.X11-unix" \
             --volume "\${XAUTHORITY}:\${XAUTHORITY}" \
-            --volume "$XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR" \
+            --volume "\${XDG_RUNTIME_DIR}:\${XDG_RUNTIME_DIR}" \
             --cpus=${dockerCpuLimit} \
             --memory=${dockerMemoryLimit} \
             --isolation=${dockerIsolationMode} \
