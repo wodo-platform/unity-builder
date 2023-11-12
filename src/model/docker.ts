@@ -63,6 +63,7 @@ class Docker {
             --rm \
             --runtime=nvidia \
             --gpus all \
+            -e DISPLAY=$DISPLAY nvidia-opencl \
             ${ImageEnvironmentFactory.getEnvVarString(parameters, additionalVariables)} \
             --env UNITY_SERIAL \
             --env GITHUB_WORKSPACE=${dockerWorkspacePath} \
@@ -108,6 +109,7 @@ class Docker {
             --rm \
             --runtime=nvidia \
             --gpus all \
+            -e DISPLAY=$DISPLAY nvidia-opencl \
             ${ImageEnvironmentFactory.getEnvVarString(parameters)} \
             --env UNITY_SERIAL="${unitySerial}" \
             --env GITHUB_WORKSPACE=c:${dockerWorkspacePath} \
