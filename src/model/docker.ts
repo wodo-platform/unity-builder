@@ -62,14 +62,13 @@ class Docker {
             --workdir ${dockerWorkspacePath} \
             --rm \
             --runtime=nvidia \
-            --gpus=0 -e DISPLAY \
+            --gpus 'all,"capabilities=compute,utility"' \
             ${ImageEnvironmentFactory.getEnvVarString(parameters, additionalVariables)} \
             --env UNITY_SERIAL \
             --env GITHUB_WORKSPACE=${dockerWorkspacePath} \
             --env GIT_CONFIG_EXTENSIONS \
-            --env DISPLAY \
-            --env NVIDIA_VISIBLE_DEVICES=all \
-            --env NVIDIA_DRIVER_CAPABILITIES=all \
+            -e NVIDIA_VISIBLE_DEVICES=all \
+            -e NVIDIA_DRIVER_CAPABILITIES=all \
             ${gitPrivateToken ? `--env GIT_PRIVATE_TOKEN="${gitPrivateToken}"` : ''} \
             ${sshAgent ? '--env SSH_AUTH_SOCK=/ssh-agent' : ''} \
             --volume "${githubHome}":"/root:z" \
@@ -79,7 +78,6 @@ class Docker {
             --volume "${actionFolder}/platforms/ubuntu/steps:/steps:z" \
             --volume "${actionFolder}/platforms/ubuntu/entrypoint.sh:/entrypoint.sh:z" \
             --volume "${actionFolder}/unity-config:/usr/share/unity3d/config/:z" \
-            --volume "/tmp/.X11-unix:/tmp/.X11-unix" \
             --cpus=${dockerCpuLimit} \
             --memory=${dockerMemoryLimit} \
             ${sshAgent ? `--volume ${sshAgent}:/ssh-agent` : ''} \
@@ -111,13 +109,12 @@ class Docker {
             --workdir c:${dockerWorkspacePath} \
             --rm \
             --runtime=nvidia \
-            --gpus=0 -e DISPLAY \
+            --gpus 'all,"capabilities=compute,utility"' \
             ${ImageEnvironmentFactory.getEnvVarString(parameters)} \
             --env UNITY_SERIAL="${unitySerial}" \
             --env GITHUB_WORKSPACE=c:${dockerWorkspacePath} \
-            --env DISPLAY \
-            --env NVIDIA_VISIBLE_DEVICES=all \
-            --env NVIDIA_DRIVER_CAPABILITIES=all \
+            -e NVIDIA_VISIBLE_DEVICES=all \
+            -e NVIDIA_DRIVER_CAPABILITIES=all \
             ${gitPrivateToken ? `--env GIT_PRIVATE_TOKEN="${gitPrivateToken}"` : ''} \
             --volume "${workspace}":"c:${dockerWorkspacePath}" \
             --volume "c:/regkeys":"c:/regkeys" \
@@ -128,7 +125,6 @@ class Docker {
             --volume "${actionFolder}/default-build-script":"c:/UnityBuilderAction" \
             --volume "${actionFolder}/platforms/windows":"c:/steps" \
             --volume "${actionFolder}/BlankProject":"c:/BlankProject" \
-            --volume "/tmp/.X11-unix:/tmp/.X11-unix" \
             --cpus=${dockerCpuLimit} \
             --memory=${dockerMemoryLimit} \
             --isolation=${dockerIsolationMode} \
