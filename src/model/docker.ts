@@ -61,6 +61,7 @@ class Docker {
     return `docker run \
             --workdir ${dockerWorkspacePath} \
             --rm \
+            --runtime=nvidia \
             --gpus all \
             -v /tmp/.X11-unix:/tmp/.X11-unix \
             -e DISPLAY=$DISPLAY \
@@ -107,6 +108,8 @@ class Docker {
     return `docker run \
             --workdir c:${dockerWorkspacePath} \
             --rm \
+            --runtime=nvidia \
+            --gpus all \
             ${ImageEnvironmentFactory.getEnvVarString(parameters)} \
             --env UNITY_SERIAL="${unitySerial}" \
             --env GITHUB_WORKSPACE=c:${dockerWorkspacePath} \
